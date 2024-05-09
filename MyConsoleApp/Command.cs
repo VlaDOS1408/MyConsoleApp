@@ -47,7 +47,7 @@ namespace MyConsoleApp
                 case "clear":
                     Console.Clear();
                     break;
-                //Не работает
+
                 case "cd":
                     FileManager.GoToPath(Comand);
                     break;
