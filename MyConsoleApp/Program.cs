@@ -10,9 +10,12 @@ namespace MyConsoleApp
         public static bool Work = true;
         static void Main(string[] args)
         {
+            //Получаем время сейчас
             DateTime Time = DateTime.Now;
-            Console.WriteLine($"{Time}"); PrintCustomTxT.Notification("INFO", "Console app start work"); // \n["); PrintCustomTxT.WriteByForegroundColor("INFO", "Cyan"); Console.WriteLine("] Console app start work\n");
+            //Выводим аремя и уведомление что консоль начала работу
+            Console.WriteLine($"{Time}"); PrintCustomTxT.Notification("INFO", "Console app start work\n");
 
+            //Консоль будет работать и запрашивать команды всегда, если bool Program.Work = true
             while (Work)
             {
                 Command.InComm();
