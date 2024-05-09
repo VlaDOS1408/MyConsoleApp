@@ -31,6 +31,7 @@ namespace MyConsoleApp
             if (rawCom == null)
                 return false;
 
+            //Разбиение введённой строки на лист (лист что бы можно было добавить кала)
             List<string> Comand = rawCom.Split(" ").Cast<string>().ToList();
 
             switch (Comand[0])
