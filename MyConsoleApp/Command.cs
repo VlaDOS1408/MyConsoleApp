@@ -11,7 +11,7 @@ namespace MyConsoleApp
     {
         static string PreComTxt = ">>> ";
 
-        //Метод форматирования введённой команды. Нужен если в будущем понадобится производить какие-то дополнительные манипуляции с текстом, кроме .Trim и .ToLower
+        //Форматирование введённой команды под нужный стандарт.
         static string CmdFormat(string input)
         {
             string output = input.Trim().ToLower();
@@ -31,8 +31,10 @@ namespace MyConsoleApp
             if (rawCom == null)
                 return false;
 
-            List<string> Comand = rawCom.Split(" ").Cast<string>().ToList();
+            //Обработанная комманда
+            var Comand = rawCom.Split(" ").Cast<string>().ToList();
 
+            //Смотрит что за ~~перец~~ команду отправил юзер (Первое слово)
             switch (Comand[0])
             {
                 case "color":
@@ -47,13 +49,14 @@ namespace MyConsoleApp
                 case "clear":
                     Console.Clear();
                     break;
-                //Не работает
+
                 case "cd":
                     FileManager.GoToPath(Comand);
                     break;
 
                 case "":
                     break;
+
                 default:
                     PrintCustomTxT.Notification("WARN", $"Comand \"{Comand[0]}\" is not found!");
                     return false;
@@ -62,6 +65,8 @@ namespace MyConsoleApp
             return true;
         }
 
+        //ВЫНЕСТИ В ОТДЕЛЬНЫЙ КЛАСС!!!
+        //Команда смены цвета в консоли
         static void ChangeConsoleColor(List<string> comand)
         {
             string color; //Просто удобное переименование
