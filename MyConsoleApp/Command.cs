@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace MyConsoleApp
 {
@@ -14,7 +14,7 @@ namespace MyConsoleApp
         //Форматирование введённой команды под нужный стандарт.
         static string CmdFormat(string input)
         {
-            string output = input.Trim().ToLower();
+            string output = Regex.Replace(input.Trim().ToLower(), @"\s+", " ");
             return output;
         }
 
@@ -32,13 +32,13 @@ namespace MyConsoleApp
                 return false;
 
             //Обработанная комманда
-            var Comand = rawCom.Split(" ").Cast<string>().ToList();
+            var comand = rawCom.Split(" ").Cast<string>().ToList();
 
             //Смотрит что за ~~перец~~ команду отправил юзер (Первое слово)
-            switch (Comand[0])
+            switch (comand[0])
             {
                 case "color":
-                    ChangeConsoleColor(Comand);
+                    ChangeConsoleColor(comand);
                     break;
 
                 case "exit":
@@ -51,14 +51,14 @@ namespace MyConsoleApp
                     break;
 
                 case "cd":
-                    FileManager.GoToPath(Comand);
+                    FileManager.GoToPath(comand);
                     break;
 
                 case "":
                     break;
 
                 default:
-                    PrintCustomTxT.Notification("WARN", $"Comand \"{Comand[0]}\" is not found!");
+                    PrintCustomTxT.Notification("WARN", $"Comand \"{comand[0]}\" is not found!");
                     return false;
             }
 
@@ -124,5 +124,4 @@ namespace MyConsoleApp
             }
         }
     }
-
 }
