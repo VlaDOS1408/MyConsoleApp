@@ -56,7 +56,7 @@ namespace MyConsoleApp
                     WriteByForegroundColor("E404", "DarkMagenta");
                     break;
             }
-            Console.WriteLine($"] {text}");
+            Console.WriteLine($"] {text}\n");
         }
     }
 

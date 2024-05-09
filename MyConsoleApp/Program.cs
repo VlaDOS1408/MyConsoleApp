@@ -11,8 +11,10 @@ namespace MyConsoleApp
         static void Main(string[] args)
         {
             DateTime Time = DateTime.Now;
-            Console.WriteLine($"{Time}"); PrintCustomTxT.Notification("INFO", "Console app start work"); // \n["); PrintCustomTxT.WriteByForegroundColor("INFO", "Cyan"); Console.WriteLine("] Console app start work\n");
+            //Выводим аремя и уведомление что консоль начала работу
+            Console.WriteLine($"{Time}"); PrintCustomTxT.Notification("INFO", "Console app start work");
 
+            //Программа работает пока bool Program.Work = true
             while (Work)
             {
                 Command.InComm();
