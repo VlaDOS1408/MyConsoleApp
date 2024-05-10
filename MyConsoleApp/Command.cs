@@ -21,7 +21,7 @@ namespace MyConsoleApp
         //Ввод команды и методы обработки сверху
         public static void InComm()
         {
-            Console.Write(FileManager.ActiveFolder + PreComTxt);
+            Console.Write(OldFileManager.ActiveFolder + PreComTxt);
             PerformComm(CmdFormat(Console.ReadLine()));
         }
 
@@ -51,7 +51,7 @@ namespace MyConsoleApp
                     break;
 
                 case "cd":
-                    FileManager.GoToPath(comand);
+                    OldFileManager.GoToPath(comand);
                     break;
 
                 case "":
