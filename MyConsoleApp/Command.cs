@@ -51,7 +51,7 @@ namespace MyConsoleApp
                     break;
 
                 case "cd":
-                    OldFileManager.GoToPath(comand);
+                    FileManager.PerformDirectoryOperation(comand);
                     break;
 
                 case "":
