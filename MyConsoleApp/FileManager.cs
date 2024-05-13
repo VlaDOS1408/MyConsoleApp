@@ -9,56 +9,70 @@ namespace MyConsoleApp
 {
     internal static class FileManager
     {
-        private static DirectoryInfo activeDirectory = new DirectoryInfo(@"C:\");
 
         public static void PerformDirectoryOperation(List<string> input)
         {
-            string path = @"C:\";
+            string newPath = @"C:\";
+
+            if (input.Count < 2)
+            {
+                Console.WriteLine(Directory.GetCurrentDirectory() + "\n");
+                return;
+            }
 
             //Удаление "cd" из входа
             input.RemoveAt(0);
-            for (int i = 0; i < input.Count; i++)
-            {
-                input[i] = input[i + 1];
-            }
-            input.RemoveAt(input.Count - 1);
 
+            //Если это абсолютный путь с пробеллами
             if (input.Count > 1)
             {
-                path = string.Join(" ", input);
+                newPath = string.Join(" ", input);
             }
             else
             {
-                path = input[1];
+                newPath = input[0];
             }
 
-            if (path == ".." && path != activeDirectory.Root.ToString())
+            if (newPath == "..")
             {
                 UpDirectory();
             }
-            else if (!path.Contains("\\") && !path.Contains(" "))
+            else if (!newPath.Contains("\\") && !newPath.Contains(" "))
             {
                 GoToCatalogInActiveDirectory();
             }
-            else if (path.Contains("\\") ) //Directory.?
+            else if (newPath.Contains("\\") && newPath.Contains(Directory.GetDirectoryRoot(Directory.GetCurrentDirectory()))) //Directory.?
             {
-                GoToAbsoluteDirectory();
+                GoToAbsoluteDirectory(newPath);
+            }
+            else
+            {
+                PrintCustomTxT.Notification("ERRO", "Uncorrect path");
             }
         }
 
         private static void UpDirectory()
         {
             //activeDirectory.FullName
+            PrintCustomTxT.Notification("DEBG", "Code absent: UpDirectory()");
+
         }
 
         private static void GoToCatalogInActiveDirectory()
         {
-
+            PrintCustomTxT.Notification("DEBG", "Code absent: GoToCatalogInActiveDirectory()");
         }
 
-        private static void GoToAbsoluteDirectory()
+        private static void GoToAbsoluteDirectory(string path)
         {
-
+            try
+            {
+                Directory.SetCurrentDirectory(path);
+            }
+            catch(Exception e)
+            {
+                PrintCustomTxT.Notification("ERRO", $"Path \"{path}\"not found");
+            }
         }
     }
 }
