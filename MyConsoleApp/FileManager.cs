@@ -68,6 +68,7 @@ namespace MyConsoleApp
             try
             {
                 Directory.SetCurrentDirectory(path);
+                Console.WriteLine();
             }
             catch(Exception e)
             {
