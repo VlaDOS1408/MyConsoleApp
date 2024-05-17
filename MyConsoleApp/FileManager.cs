@@ -9,10 +9,9 @@ namespace MyConsoleApp
 {
     internal static class FileManager
     {
-
         public static void PerformDirectoryOperation(List<string> input)
         {
-            string newPath = @"C:\";
+            string newPath;
 
             if (input.Count < 2)
             {
@@ -41,7 +40,7 @@ namespace MyConsoleApp
             {
                 GoToCatalogInActiveDirectory();
             }
-            else if (newPath.Contains("\\") && newPath.Contains(Directory.GetDirectoryRoot(Directory.GetCurrentDirectory()))) //Directory.?
+            else if (newPath.Contains(Directory.GetDirectoryRoot(Directory.GetCurrentDirectory())))
             {
                 GoToAbsoluteDirectory(newPath);
             }
@@ -53,9 +52,17 @@ namespace MyConsoleApp
 
         private static void UpDirectory()
         {
-            //activeDirectory.FullName
-            PrintCustomTxT.Notification("DEBG", "Code absent: UpDirectory()");
+            string currentPath = Directory.GetCurrentDirectory();
+            string directoryRoot = Directory.GetDirectoryRoot(currentPath);
+            string newCurrentPath;
 
+            if (currentPath == directoryRoot)
+            {
+                Console.WriteLine();
+                return;
+            }
+                
+            //
         }
 
         private static void GoToCatalogInActiveDirectory()
@@ -72,7 +79,7 @@ namespace MyConsoleApp
             }
             catch(Exception e)
             {
-                PrintCustomTxT.Notification("ERRO", $"Path \"{path}\"not found");
+                PrintCustomTxT.Notification("ERRO", $"Path \"{path}\"not found ({e})");
             }
         }
     }
