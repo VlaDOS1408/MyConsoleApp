@@ -10,7 +10,7 @@ namespace MyConsoleApp
 
     internal class Command
     {
-        static string PreComTxt = ">>> ";
+        static string PreComTxt = "> ";
 
         //Форматирование введённой команды под нужный стандарт.
         static string CmdFormat(string input)
@@ -22,7 +22,7 @@ namespace MyConsoleApp
         //Ввод команды и методы обработки сверху
         public static void InComm()
         {
-            Console.Write(Directory.GetCurrentDirectory() + "\\" + PreComTxt);
+            Console.Write(Directory.GetCurrentDirectory() + PreComTxt);
             PerformComm(CmdFormat(Console.ReadLine()));
         }
 

@@ -56,13 +56,24 @@ namespace MyConsoleApp
             string directoryRoot = Directory.GetDirectoryRoot(currentPath);
             string newCurrentPath;
 
+            int lastIndexOfSlash = currentPath.LastIndexOf('\\');
+
             if (currentPath == directoryRoot)
             {
                 Console.WriteLine();
                 return;
             }
-                
-            //
+
+            newCurrentPath = currentPath.Substring(0, lastIndexOfSlash);
+
+            if (newCurrentPath == directoryRoot.Substring(0, directoryRoot.Length - 1))
+            {
+                GoToAbsoluteDirectory(directoryRoot);
+            }
+            else
+            {
+                GoToAbsoluteDirectory(newCurrentPath);
+            } 
         }
 
         private static void GoToCatalogInActiveDirectory()
