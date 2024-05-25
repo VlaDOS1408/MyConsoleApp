@@ -61,7 +61,8 @@ namespace MyConsoleApp
                     break;
 
                 case "dir":
-
+                    var dir = new DirCommand();
+                    dir.Execute(comand);
                     break;
 
                 case "":
