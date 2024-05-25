@@ -1,78 +1,101 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace MyConsoleApp
 {
-    //Лучше переписать анхуй это говнище 💀💀💀
+    //Outdate class format. Use CDCommand()
     internal class FileManager
     {
-        static string activeFolder = @"C:\Users\Admin\";
-
-        //Аксессор взаимодействия с путём активной папки (поле)
-        public static string ActiveFolder
+        public void PerformDirectoryOperation(List<string> input)
         {
-            get
-            {
-                return activeFolder;
-            }
-            set
-            {
-                activeFolder = value.Replace("/", @"\");
-            }
-        }
+            //Логово сатаны, ждёт вас ниже
+            //БЕГИТЕ ГЛУПЦЫ!!!
+            string newPath;
 
-        //Идти к папке
-        public static void GoToPath(List<string> arg)
-        {
-            //Нерабочий, или рабочий паттерн.
-            string pattern = @"[A-Z]";
-
-            //Если в листе который типо команда менее 2х элементов он добавляет "";
-            if (arg.Count() < 2)
+            if (input.Count < 2)
             {
-                //Вырезать увед
-                PrintCustomTxT.Notification("ERRO", "The argument is not correct");
-                arg.Add("");
+                Console.WriteLine(Directory.GetCurrentDirectory() + "\n");
+                return;
             }
 
-            //Поднятся по каталогу вверх, но вообще вырезает последнее слово
-            void UpCatalog(string path)
-            {
-                int lastSlashIndex = path.LastIndexOf(@"\");
-                if (lastSlashIndex > 1)
-                {
-                    path = path.Substring(0, lastSlashIndex);
-                    PrintCustomTxT.Notification("DEBG", "IT IS WORK LINE 222");
-                }
-            }
+            //Удаление "cd" из входа
+            input.RemoveAt(0);
 
-            //Это вообще рай коммунизма, тут чёрт знает что! Это я про всё, а не про метод ниже.
-            void GoToCatalogInActiveFolder(string path)
+            //Если это абсолютный путь с пробеллами
+            if (input.Count > 1)
             {
-                //Просто пишет что вы типо куда-то ушли (нет)
-                PrintCustomTxT.Notification("DEBG", "Go To Catalog In Active Folder");
-            }
-
-            //Проверка что вы хотите сделать
-            if (arg[1] == "")
-            {
-                UpCatalog(arg[1]);
-            }
-            else if (!(/*Regex.IsMatch(arg[1], pattern) &&*/ arg[1].Contains(":") && arg[1].Contains(@"\")))
-            {
-                GoToCatalogInActiveFolder(arg[1]);
-            }
-            else if (Regex.IsMatch(arg[1], pattern) && arg[1].Contains(":") && arg[1].Contains(@"\"))
-            {
-                ActiveFolder = arg[1];
+                newPath = string.Join(" ", input);
             }
             else
             {
-                PrintCustomTxT.Notification("ERRO", "The argument is not correct");
+                newPath = input[0];
+            }
+
+            if (newPath == "..")
+            {
+                UpDirectory();
+            }
+            else if (!newPath.Contains("\\") && !newPath.Contains(" "))
+            {
+                GoToCatalogInActiveDirectory(newPath);
+            }
+            else if (newPath.Contains(Directory.GetDirectoryRoot(Directory.GetCurrentDirectory())))
+            {
+                GoToAbsoluteDirectory(newPath);
+            }
+            else
+            {
+                PrintCustomTxT.Notification("ERRO", "Uncorrect path");
+            }
+        }
+
+        private void UpDirectory()
+        {
+            string currentPath = Directory.GetCurrentDirectory();
+            string directoryRoot = Directory.GetDirectoryRoot(currentPath);
+            string newCurrentPath;
+
+            int lastIndexOfSlash = currentPath.LastIndexOf('\\');
+
+            if (currentPath == directoryRoot)
+            {
+                Console.WriteLine();
+                return;
+            }
+
+            newCurrentPath = currentPath.Substring(0, lastIndexOfSlash);
+
+            if (newCurrentPath == directoryRoot.Substring(0, directoryRoot.Length - 1))
+            {
+                GoToAbsoluteDirectory(directoryRoot);
+            }
+            else
+            {
+                GoToAbsoluteDirectory(newCurrentPath);
+            } 
+        }
+
+        private void GoToCatalogInActiveDirectory(string path)
+        {
+            string newPath = Directory.GetCurrentDirectory() + "\\" + path;
+
+            GoToAbsoluteDirectory(newPath);
+        }
+
+        private void GoToAbsoluteDirectory(string path)
+        {
+            try
+            {
+                Directory.SetCurrentDirectory(path);
+                Console.WriteLine();
+            }
+            catch(Exception e)
+            {
+                PrintCustomTxT.Notification("ERRO", $"Path \"{path}\"not found ({e})");
             }
         }
     }
