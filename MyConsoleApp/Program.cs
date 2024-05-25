@@ -7,7 +7,6 @@ namespace MyConsoleApp
 {
     internal class Program
     {
-        public static bool Work = true;
         static void Main(string[] args)
         {
             //Получаем время сейчас
@@ -19,11 +18,8 @@ namespace MyConsoleApp
             //Выводим время и уведомление что консоль начала работу
             Console.WriteLine($"{Time}"); PrintCustomTxT.Notification("INFO", "Console app start work");
 
-            //Консоль будет работать и запрашивать команды всегда, если bool Program.Work = true
-            while (Work)
-            {
+            //Консоль будет ВСЕГДА запрашивать команду
                 Command.InComm();
             }
         }
     }
-}
