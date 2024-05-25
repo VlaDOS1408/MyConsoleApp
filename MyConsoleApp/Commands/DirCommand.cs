@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyConsoleApp
+namespace MyConsoleApp.Commands
 {
     //Это СМЕРТЬ! НИ В КОЕМ СЛУЧАЕ НЕ ЧИТАТЬ!!! ВЫ УМРЁТЕ ЕСЛИ ПРОЧИТАЕТЕ ЭТОТ КОД!!!
     //Вы были предупреждены...
@@ -29,7 +29,7 @@ namespace MyConsoleApp
             Console.WriteLine();
 
             //Принтим это в консоль. Сначала дирректории, потом файлы.
-            foreach ( var dir in dirrectoryes)
+            foreach (var dir in dirrectoryes)
             {
                 //Приводим сырые данные к нужному формату строки.
                 Console.WriteLine(ToDirFormat(dir.Name, dir));
@@ -51,8 +51,8 @@ namespace MyConsoleApp
         {
             //Беру нужные данные
             DateTime elementCreationTime = elementInfo.CreationTime;
-            string elementType = (elementInfo.GetType()).ToString();
-            
+            string elementType = elementInfo.GetType().ToString();
+
             //Это своего рода костыль, но мне пофиг. Работает - не лезь.
             string secondElementInArray = elementType == "System.IO.DirectoryInfo" ? "<DIR>" : "";
 
