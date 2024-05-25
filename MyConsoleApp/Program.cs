@@ -7,22 +7,27 @@ namespace MyConsoleApp
 {
     internal class Program
     {
+        public static bool Work = true;
         static void Main(string[] args)
         {
             //Получаем время сейчас
             DateTime Time = DateTime.Now;
 
-            //Устанавливаем дирректорию для файловой системы
-            Directory.SetCurrentDirectory(@"C:\Users\");
-
-            //Выводим время и уведомление что консоль начала работу
-            Console.WriteLine($"{Time}"); PrintCustomTxT.Notification("INFO", "Console app start work");
-
-            //Консоль будет ВСЕГДА запрашивать команду
-            while (true)
+            //Устанавливаем рабочую дирректорию
+            try
             {
-                Command.InComm();
+                Directory.SetCurrentDirectory(Directory.GetDirectoryRoot(Directory.GetCurrentDirectory()) + "Users");
+            }
+            catch { }
+            //Выводим время и уведомление что консоль начала работу
+            Console.WriteLine($"{Time}"); PrintCustomTxT.Notification("INFO", "Console app start work\n");
+
+            //Консоль будет работать и запрашивать команды всегда, если bool Program.Work = true
+            var cmdManager = new CommandManager();
+            while (Work)
+            {
+                cmdManager.InputCommand();
             }
         }
     }
-}       
+}

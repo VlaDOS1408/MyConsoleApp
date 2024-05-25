@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyConsoleApp
+namespace MyConsoleApp.Commands
 {
     //Outdate class format. Use CDCommand()
     internal class FileManager
@@ -76,7 +76,7 @@ namespace MyConsoleApp
             else
             {
                 GoToAbsoluteDirectory(newCurrentPath);
-            } 
+            }
         }
 
         private void GoToCatalogInActiveDirectory(string path)

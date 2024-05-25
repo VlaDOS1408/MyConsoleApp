@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyConsoleApp
+namespace MyConsoleApp.Commands
 {
     //Adapter of FileManager class
     internal class CDCommand : FileManager, ICommand
