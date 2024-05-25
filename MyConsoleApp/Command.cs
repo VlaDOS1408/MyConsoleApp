@@ -46,7 +46,7 @@ namespace MyConsoleApp
 
                 case "exit":
                     Console.ResetColor();
-                    Program.Work = false;
+                    Environment.Exit(0);
                     break;
 
                 case "clear":
@@ -56,6 +56,10 @@ namespace MyConsoleApp
                 case "cd":
                     CDCommand cd = new CDCommand();
                     cd.Execute(comand);
+                    break;
+
+                case "dir":
+
                     break;
 
                 case "":
