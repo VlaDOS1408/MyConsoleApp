@@ -19,7 +19,10 @@ namespace MyConsoleApp
             Console.WriteLine($"{Time}"); PrintCustomTxT.Notification("INFO", "Console app start work");
 
             //Консоль будет ВСЕГДА запрашивать команду
-            Command.InComm();
+            while (true)
+            {
+                Command.InComm();
+            }
         }
     }
 }       
