@@ -2,42 +2,46 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
+using System.Xml.Linq;
 
 namespace MyConsoleApp
 {
 
     internal class Command
     {
-        static string PreComTxt = ">>> ";
+        static string PreComTxt = "> ";
 
-        //Метод форматирования введённой команды. Нужен если в будущем понадобится производить какие-то дополнительные манипуляции с текстом, кроме .Trim и .ToLower
-        static string CmdFormat(string input)
+        //Форматирование введённой команды под нужный стандарт.
+        static string CmdFormat(string? input)
         {
-            string output = input.Trim().ToLower();
+
+            string output = Regex.Replace(input.Trim(), @"\s+", " ");
             return output;
         }
 
         //Ввод команды и методы обработки сверху
         public static void InComm()
         {
-            Console.Write(FileManager.ActiveFolder + PreComTxt);
+            Console.Write(Directory.GetCurrentDirectory() + PreComTxt);
             PerformComm(CmdFormat(Console.ReadLine()));
         }
 
         //Bool просто что бы return работал. Выполняет команды.
         static bool PerformComm(string rawCom)
         {
+            //ДОБАВИТЬ ИГНОРИРОВАНИЕ РЕГИСТРА БУКВ!!!!!!!!!!!!!!!!!!!!!!
             if (rawCom == null)
                 return false;
 
-            //Разбиение введённой строки на лист (лист что бы можно было добавить кала)
-            List<string> Comand = rawCom.Split(" ").Cast<string>().ToList();
+            //Обработанная комманда
+            var comand = rawCom.Split(" ").Cast<string>().ToList();
 
-            switch (Comand[0])
+            //Смотрит что за команду отправил юзер (Первое слово)
+            switch (comand[0])
             {
                 case "color":
-                    ChangeConsoleColor(Comand);
+                    ChangeConsoleColor(comand);
                     break;
 
                 case "exit":
@@ -50,19 +54,23 @@ namespace MyConsoleApp
                     break;
 
                 case "cd":
-                    FileManager.GoToPath(Comand);
+                    CDCommand cd = new CDCommand();
+                    cd.Execute(comand);
                     break;
 
                 case "":
                     break;
+
                 default:
-                    PrintCustomTxT.Notification("WARN", $"Comand \"{Comand[0]}\" is not found!");
+                    PrintCustomTxT.Notification("WARN", $"Comand \"{comand[0]}\" is not found!");
                     return false;
             }
 
             return true;
         }
 
+        //ВЫНЕСТИ В ОТДЕЛЬНЫЙ КЛАСС!!!
+        //Команда смены цвета в консоли
         static void ChangeConsoleColor(List<string> comand)
         {
             string color; //Просто удобное переименование
@@ -120,5 +128,4 @@ namespace MyConsoleApp
             }
         }
     }
-
 }
