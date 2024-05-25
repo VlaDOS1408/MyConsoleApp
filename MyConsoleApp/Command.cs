@@ -65,6 +65,11 @@ namespace MyConsoleApp
                     dir.Execute(comand);
                     break;
 
+                //Хуйня, переделать
+                case "echo":
+                    Console.WriteLine((string.Join(" ",comand)).Substring(5) +"\n");
+                    break;
+
                 case "":
                     break;
 
