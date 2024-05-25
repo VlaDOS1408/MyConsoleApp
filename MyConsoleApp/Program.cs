@@ -22,4 +22,4 @@ namespace MyConsoleApp
             Command.InComm();
         }
     }
-}
+}       
