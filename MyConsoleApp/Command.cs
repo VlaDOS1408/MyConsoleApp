@@ -53,7 +53,8 @@ namespace MyConsoleApp
                     break;
 
                 case "cd":
-                    FileManager.PerformDirectoryOperation(comand);
+                    CDCommand cd = new CDCommand();
+                    cd.Execute(comand);
                     break;
 
                 case "":

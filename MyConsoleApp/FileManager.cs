@@ -7,10 +7,13 @@ using System.Threading.Tasks;
 
 namespace MyConsoleApp
 {
-    internal static class FileManager
+    //Outdate class format. Use CDCommand()
+    internal class FileManager
     {
-        public static void PerformDirectoryOperation(List<string> input)
+        public void PerformDirectoryOperation(List<string> input)
         {
+            //Логово сатаны, ждёт вас ниже
+            //БЕГИТЕ ГЛУПЦЫ!!!
             string newPath;
 
             if (input.Count < 2)
@@ -38,7 +41,7 @@ namespace MyConsoleApp
             }
             else if (!newPath.Contains("\\") && !newPath.Contains(" "))
             {
-                GoToCatalogInActiveDirectory();
+                GoToCatalogInActiveDirectory(newPath);
             }
             else if (newPath.Contains(Directory.GetDirectoryRoot(Directory.GetCurrentDirectory())))
             {
@@ -50,7 +53,7 @@ namespace MyConsoleApp
             }
         }
 
-        private static void UpDirectory()
+        private void UpDirectory()
         {
             string currentPath = Directory.GetCurrentDirectory();
             string directoryRoot = Directory.GetDirectoryRoot(currentPath);
@@ -76,12 +79,14 @@ namespace MyConsoleApp
             } 
         }
 
-        private static void GoToCatalogInActiveDirectory()
+        private void GoToCatalogInActiveDirectory(string path)
         {
-            PrintCustomTxT.Notification("DEBG", "Code absent: GoToCatalogInActiveDirectory()");
+            string newPath = Directory.GetCurrentDirectory() + "\\" + path;
+
+            GoToAbsoluteDirectory(newPath);
         }
 
-        private static void GoToAbsoluteDirectory(string path)
+        private void GoToAbsoluteDirectory(string path)
         {
             try
             {
