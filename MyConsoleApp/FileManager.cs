@@ -93,9 +93,9 @@ namespace MyConsoleApp
                 Directory.SetCurrentDirectory(path);
                 Console.WriteLine();
             }
-            catch(Exception e)
+            catch
             {
-                PrintCustomTxT.Notification("ERRO", $"Path \"{path}\"not found ({e})");
+                PrintCustomTxT.Notification("ERRO", "The system cannot find the specified path."); //$"Path \"{path}\" not found ({e})");
             }
         }
     }
