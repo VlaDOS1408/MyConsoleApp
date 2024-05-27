@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using System.Text.RegularExpressions;
 using MyConsoleApp.Commands;
 
 namespace MyConsoleApp
@@ -75,13 +75,17 @@ namespace MyConsoleApp
             }
 
             List<string> parts = input.Split(' ').Cast<string>().ToList();
-            //var args = parts.Skip(1).ToList();
+            //var args = parts.Skip(1).ToList(); //Удаление самой комманды
             var commandStr = parts[0];
 
             var command = _commands[commandStr];
             command.Execute(parts);
         }
 
+        public static List<string> DeleteCommandArg(List<string> input)
+        {
+            return input.Skip(1).ToList();
+        }
         
         /*Устаревший метод. НЕ ИСПОЛЬЗОВАТЬ!!!! ОСТАВЛЕН ТОЛЬКО ДЛЯ... ПРОСТО НУЖЕН!!!
         //Bool просто что бы return работал. Выполняет команды.
