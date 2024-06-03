@@ -28,6 +28,7 @@ namespace MyConsoleApp.Commands
             //Если это абсолютный путь с пробеллами
             if (input.Count > 1)
             {
+                //Не работает с путями в которых несколько пробелов между 2мя смловами
                 newPath = string.Join(" ", input);
             }
             else

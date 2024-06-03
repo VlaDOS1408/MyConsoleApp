@@ -14,7 +14,7 @@ namespace MyConsoleApp
         internal CommandManager()
         {
             _commands = new Dictionary<string, ICommand>{
-                {"cd", new CDCommand()},
+                {"cd", new CDCommand()}, //Не работает с путями в которых несколько пробелов между 2мя словами => MyConsoleApp.FileManager
                 {"color", new ColorCommand()},
                 {"clear", new ClearCommand()},
                 {"dir", new DirCommand()},
@@ -25,13 +25,14 @@ namespace MyConsoleApp
         }
 
         /* Реализовать этот конструктор позже. Должен будет задавать команды из вне.
-        internal CommandManager(string pathToConfig)
+        public CommandManager(string pathToConfig)
         {
 
         }
         */
 
         private string _prefix = "> ";
+
         private readonly Dictionary<string, ICommand> _commands;
 
         public string Prefix
@@ -55,6 +56,10 @@ namespace MyConsoleApp
         //Форматирование введённой команды под нужный стандарт.
         private string ToCommandFormat(string? input)
         {
+            if (input == null)
+            {
+                return "";
+            }
             string output = Regex.Replace(input.Trim(), @"\s+", " ");
             return output;
         }
@@ -73,13 +78,22 @@ namespace MyConsoleApp
             {
                 return;
             }
-
             List<string> parts = input.Split(' ').Cast<string>().ToList();
             //var args = parts.Skip(1).ToList(); //Удаление самой комманды
-            var commandStr = parts[0];
+            var commandStr = parts[0].ToLower();
 
-            var command = _commands[commandStr];
-            command.Execute(parts);
+            try
+            {
+                var command = _commands[commandStr];
+                command.Execute(parts);
+            }
+            catch (Exception ex)
+            {
+                PrintCustomTxT.Notification("ERRO", $"Command \"{parts[0]}\" not found");
+                if(Program.debug)
+                    PrintCustomTxT.Notification("DEBG", $"{ex.Message}\n");
+            }
+
         }
 
         public static List<string> DeleteCommandArg(List<string> input)
