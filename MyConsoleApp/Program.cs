@@ -7,7 +7,9 @@ namespace MyConsoleApp
 {
     internal class Program
     {
-        public static bool Work = true;
+        public static bool work = true;
+        public static bool debug = true;
+
         static void Main(string[] args)
         {
             //Получаем время сейчас
@@ -24,7 +26,7 @@ namespace MyConsoleApp
 
             //Консоль будет работать и запрашивать команды всегда, если bool Program.Work = true
             var cmdManager = new CommandManager();
-            while (Work)
+            while (work)
             {
                 cmdManager.InputCommand();
             }
