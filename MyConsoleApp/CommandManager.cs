@@ -55,11 +55,9 @@ namespace MyConsoleApp
         private string ToCommandFormat(string? input)
         {
             if (input == null)
-            {
                 return "";
-            }
-            //input = Regex.Replace(input.Trim(), @"\s+", " ");
-            return input;
+
+            return Regex.Replace(input.Trim(), @"\s+", " "); ;
         }
 
         //Ввод команды и методы обработки сверху
