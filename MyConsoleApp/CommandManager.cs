@@ -49,9 +49,7 @@ namespace MyConsoleApp
                     _prefix = value;
                 }                
             }
-        }
-
-        
+        }        
 
         //Форматирование введённой команды под нужный стандарт.
         private string ToCommandFormat(string? input)
@@ -60,8 +58,8 @@ namespace MyConsoleApp
             {
                 return "";
             }
-            string output = Regex.Replace(input.Trim(), @"\s+", " ");
-            return output;
+            //input = Regex.Replace(input.Trim(), @"\s+", " ");
+            return input;
         }
 
         //Ввод команды и методы обработки сверху
@@ -89,11 +87,17 @@ namespace MyConsoleApp
             }
             catch (Exception ex)
             {
-                PrintCustomTxT.Notification("ERRO", $"Command \"{parts[0]}\" not found");
-                if(Program.debug)
-                    PrintCustomTxT.Notification("DEBG", $"{ex.Message}\n");
+                if (ex.HResult == -2146232969)
+                {
+                    PrintCustomTxT.Notification("ERRO", $"Command \"{parts[0]}\" not found");//-2146232969 => команды нет
+                    if (Program.debug)
+                        PrintCustomTxT.Notification("DEBG", $"{ex.Message}\n");
+                }
+                else
+                {
+                    PrintCustomTxT.Notification("ERRO", ex.Message);
+                }
             }
-
         }
 
         public static List<string> DeleteCommandArg(List<string> input)
