@@ -8,19 +8,16 @@
             DirectoryInfo directoryInfo = new DirectoryInfo(Directory.GetCurrentDirectory());
 
             //Получаем данные о дирректориях и файлах
-            var files = directoryInfo.GetFiles();
-            var dirrectoryes = directoryInfo.GetDirectories();
+            var fileSystemInfos = directoryInfo.GetFileSystemInfos();
 
-            //Принтим это в консоль. Сначала дирректории, потом файлы.
+            //Принтим это в консоль.
             Console.WriteLine();
-            foreach (var dir in dirrectoryes)
+            foreach (var fileSystemInfo in fileSystemInfos)
             {
-                Console.WriteLine(ToDirFormat(dir));
-            }
-
-            foreach (var file in files)
-            {
-                Console.WriteLine(ToDirFormat(file));
+                if (fileSystemInfo is DirectoryInfo)
+                    Console.WriteLine(ToDirFormat(fileSystemInfo as DirectoryInfo));
+                else
+                    Console.WriteLine(ToDirFormat(fileSystemInfo as FileInfo));
             }
             Console.WriteLine();
         }
@@ -29,16 +26,14 @@
         private string ToDirFormat(FileSystemInfo elementInfo)
         {
             string dirMark = "<DIR>";
-
-            //Да, это выглядит очень странно, но без этой проверки будет исключение если это дирректория.
-            //А в конце я рудимент добавил, ну чтобы если захочу всё вернуть - он тут был.
-            string fileMark = elementInfo is FileInfo ? ((elementInfo as FileInfo).Length / 1024).ToString() : new string(' ', dirMark.Length);
+            string fileMark = new string(' ', dirMark.Length);
 
             //Массив с нужными данными
             string[] outputArray =
             {
                 elementInfo.LastAccessTime.ToString(),
                 elementInfo is DirectoryInfo ? dirMark : fileMark,
+                elementInfo is FileInfo ? ((elementInfo as FileInfo).Length / 1024).ToString() : "",
                 elementInfo.Name
             };
 
