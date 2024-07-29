@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MyConsoleApp.Commands
+﻿namespace MyConsoleApp.Commands
 {
-    internal class ExitCommand : ICommand
+    internal class ExitCommand : BaseCommand, ICommand
     {
-        public void Execute(List<string> args)
+        public override string Name => "exit";
+
+        public override string Description => "Выход из программы.";
+
+        public override void Execute(List<string> args)
         {
             PrintCustomTxT.Notification("INFO", "Console closed");
             Console.ResetColor();

@@ -6,9 +6,13 @@ using System.Threading.Tasks;
 
 namespace MyConsoleApp.Commands
 {
-    internal class ClearCommand : ICommand
+    internal class ClearCommand : BaseCommand, ICommand
     {
-        public void Execute(List<string> args)
+        public override string Name => "clear";
+
+        public override string Description => "Очистка экрана.";
+
+        public override void Execute(List<string> args)
         {
             Console.Clear();
         }

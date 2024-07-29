@@ -10,9 +10,13 @@ namespace MyConsoleApp.Commands
 {
     //Это СМЕРТЬ! НИ В КОЕМ СЛУЧАЕ НЕ ЧИТАТЬ!!! ВЫ УМРЁТЕ ЕСЛИ ПРОЧИТАЕТЕ ЭТОТ КОД!!!
     //Вы были предупреждены...
-    internal class DirCommand : ICommand
+    internal class DirCommand : BaseCommand, ICommand
     {
-        public void Execute(List<string> args)
+        public override string Name => "dir";
+
+        public override string Description => "Вывод списка файлов и подпапок из указанной папки.";
+
+        public override void Execute(List<string> args)
         {
             //ДОБРО ПОЖАЛОВАТЬ В РАЙ ГОВНОКОДА!!! ВЫ САМИ ЭТОГО ЗАХОТЕЛИ!!! УАХАХАХАХАХАХ! А ВОТ ХРЕН ВАМ А НЕ КОММЕНТАРИИ!! УААХАХХАХАХАХАХ!
             //Боже, я же это сам читать буду через 5 лет ._.

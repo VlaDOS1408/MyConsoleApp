@@ -6,9 +6,13 @@ using System.Threading.Tasks;
 
 namespace MyConsoleApp.Commands
 {
-    internal class TypeCommand : ICommand
+    internal class TypeCommand : BaseCommand, ICommand
     {
-        public void Execute(List<string> args)
+        public override string Name => "type";
+
+        public override string Description => "Отображает содержимое текстовых файлов.";
+
+        public override void Execute(List<string> args)
         {
             PrintCustomTxT.Notification("Debg", "Code absent: TypeCommand.Execute()");
         }

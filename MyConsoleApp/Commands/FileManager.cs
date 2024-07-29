@@ -1,13 +1,6 @@
-﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MyConsoleApp.Commands
+﻿namespace MyConsoleApp.Commands
 {
-    //Outdate class format. Use CDCommand()
+    [Obsolete("Outdate command class. Use CDCommand.")]
     internal class FileManager
     {
         public void PerformDirectoryOperation(List<string> input)

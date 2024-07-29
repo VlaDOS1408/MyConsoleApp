@@ -7,11 +7,16 @@ using System.Threading.Tasks;
 namespace MyConsoleApp.Commands
 {
     //Adapter of FileManager class
-    internal class CDCommand : FileManager, ICommand
+    internal class CDCommand : BaseCommand, ICommand
     {
-        public void Execute(List<string> args)
+        public override string Name => "cd";
+
+        public override string Description => "Вывод имени либо смена текущей папки.";
+
+        public override void Execute(List<string> args)
         {
-            this.PerformDirectoryOperation(args);
+            FileManager fileManager = new();
+            fileManager.PerformDirectoryOperation(args);
         }
     }
 }

@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-
-namespace MyConsoleApp.Commands
+﻿namespace MyConsoleApp.Commands
 {
-    internal class EchoCommand : ICommand
+    internal class EchoCommand : BaseCommand, ICommand
     {
-        public void Execute(List<string> args)
+        public override string Name => "echo";
+
+        public override string Description => "Отображает сообщение.";
+
+        public override void Execute(List<string> args)
         {
             Console.WriteLine((string.Join(" ", args)).Substring(5) + "\n");
         }

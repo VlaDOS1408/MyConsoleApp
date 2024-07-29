@@ -6,9 +6,13 @@ using System.Threading.Tasks;
 
 namespace MyConsoleApp.Commands
 {
-    internal class ColorCommand : ICommand
+    internal class ColorCommand : BaseCommand, ICommand
     {
-        public void Execute(List<string> args)
+        public override string Name => "color";
+
+        public override string Description => "Установка цветов переднего плана и фона, используемых по умолчанию.";
+
+        public override void Execute(List<string> args)
         {
             ChangeConsoleColor(args);
         }
