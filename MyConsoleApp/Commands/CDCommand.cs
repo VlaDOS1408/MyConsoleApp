@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MyConsoleApp.Commands
+﻿namespace MyConsoleApp.Commands
 {
     //Adapter of FileManager class
     internal class CDCommand : BaseCommand, ICommand

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Drawing;
-using System.IO;
-using System.Text.RegularExpressions;
-
-namespace MyConsoleApp
+﻿namespace MyConsoleApp
 {
     internal class Program
     {
