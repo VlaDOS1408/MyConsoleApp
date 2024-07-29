@@ -1,7 +1,5 @@
 ﻿namespace MyConsoleApp.Commands
 {
-    //Это СМЕРТЬ! НИ В КОЕМ СЛУЧАЕ НЕ ЧИТАТЬ!!! ВЫ УМРЁТЕ ЕСЛИ ПРОЧИТАЕТЕ ЭТОТ КОД!!!
-    //Вы были предупреждены...
     internal class DirCommand : BaseCommand, ICommand
     {
         public override string Name => "dir";
