@@ -8,7 +8,7 @@
 
         public override void Execute(List<string> args)
         {
-            Console.WriteLine((string.Join(" ", args)).Substring(5) + "\n");
+            Console.WriteLine((string.Join(" ", args)) + "\n");
         }
     }
 }

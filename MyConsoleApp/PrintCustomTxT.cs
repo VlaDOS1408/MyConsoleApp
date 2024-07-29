@@ -1,8 +1,8 @@
 ﻿namespace MyConsoleApp
 {
-
     internal class PrintCustomTxT
     {
+        //Переписать этот позор, и чем раньше - тем лучше!!!!!! Пока не стало слишком поздно!!! 
         //Writ-ит текст в каком-то foreground цвете. Принимает текст и цвет.
         public static void WriteByForegroundColor(string input_txt, string input_color)
         {
@@ -22,15 +22,15 @@
         }
 
         /*
-         * Такая-же штука как CW. Просто является шаблонной штукой для вывода уведомлений.
-         * Принимает тип уведомления (Он должен быть прописан) и сам текст.
+         * Такая-же штука как Console.Write. Просто является шаблонной штукой для вывода уведомлений.
+         * Принимает тип уведомления (Он должен быть прописан(какой дурак это придумал, а точно, это же я писал)) и сам текст.
         */
         public static void Notification(string notificationType, string text)
         {
             string INFO = "Cyan"; //Ярлык цвету
             string WARN = "Yellow"; //И это
             string ERRO = "Red"; //И это
-            string DEBG = "Blue";
+            string DEBG = "Blue"; 
 
             notificationType = notificationType.ToUpper();
             

@@ -16,7 +16,7 @@
             }
 
             //Удаление "cd" из входа
-            input.RemoveAt(0);
+            //input.RemoveAt(0);
 
             //Если это абсолютный путь с пробеллами
             if (input.Count > 1)
