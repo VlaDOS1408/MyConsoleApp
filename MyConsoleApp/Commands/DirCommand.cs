@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MyConsoleApp.Commands
+﻿namespace MyConsoleApp.Commands
 {
     //Это СМЕРТЬ! НИ В КОЕМ СЛУЧАЕ НЕ ЧИТАТЬ!!! ВЫ УМРЁТЕ ЕСЛИ ПРОЧИТАЕТЕ ЭТОТ КОД!!!
     //Вы были предупреждены...
@@ -18,59 +10,40 @@ namespace MyConsoleApp.Commands
 
         public override void Execute(List<string> args)
         {
-            //ДОБРО ПОЖАЛОВАТЬ В РАЙ ГОВНОКОДА!!! ВЫ САМИ ЭТОГО ЗАХОТЕЛИ!!! УАХАХАХАХАХАХ! А ВОТ ХРЕН ВАМ А НЕ КОММЕНТАРИИ!! УААХАХХАХАХАХАХ!
-            //Боже, я же это сам читать буду через 5 лет ._.
-            //Ладно, так и быть, добавлю комменты.
-
-            //Создаём объект дирректирии со всей инфой
+            //Создаём объект дирректории со всей инфой
             DirectoryInfo directoryInfo = new DirectoryInfo(Directory.GetCurrentDirectory());
 
             //Получаем данные о дирректориях и файлах
-            var files = directoryInfo.GetFiles();
-            var dirrectoryes = directoryInfo.GetDirectories();
+            var fileSystemInfos = directoryInfo.GetFileSystemInfos();
 
-            //Это только ради "\n"
+            //Принтим это в консоль.
             Console.WriteLine();
-
-            //Принтим это в консоль. Сначала дирректории, потом файлы.
-            foreach (var dir in dirrectoryes)
+            foreach (var fileSystemInfo in fileSystemInfos)
             {
-                //Приводим сырые данные к нужному формату строки.
-                Console.WriteLine(ToDirFormat(dir.Name, dir));
+                if (fileSystemInfo is DirectoryInfo)
+                    Console.WriteLine(ToDirFormat(fileSystemInfo as DirectoryInfo));
+                else
+                    Console.WriteLine(ToDirFormat(fileSystemInfo as FileInfo));
             }
-
-            foreach (var file in files)
-            {
-                Console.WriteLine(ToDirFormat(file.Name, file));
-            }
-
             Console.WriteLine();
         }
 
-        //Метод превращает название елемента в "$ДАТА_ТАЙМ-СОЗДАНИЯ-ЭЛЕМЕНТА &ТИП-ЭЛЕМЕНТА &НАЗВАНИЕ-ЭЛЕМЕНТА"
-        //Метод немного уёбищный, потому что изначально я его спроектировал другим.
-        //Ну а ещё я юзаю динамик, потому что мне впадлу лепить что-то лишнее. Пох на оптимизацию.
-        //А ещё мне по боку что оно сделанно через одно место, потому что работает - значит кайф :)
-        private string ToDirFormat(string input, dynamic elementInfo)
+        //Метод превращает экзмемпляр FileSystemInfo в "[$ДАТА_ПОСЛЕДНЕГО_ИЗМЕНЕНИЯ] [$ТИП_ЭЛЕМЕНТА || $РАЗМЕР_ФАЙЛА] [$НАЗВАНИЕ_ЭЛЕМЕНТА]"
+        private string ToDirFormat(FileSystemInfo elementInfo)
         {
-            //Беру нужные данные
-            DateTime elementCreationTime = elementInfo.CreationTime;
-            string elementType = elementInfo.GetType().ToString();
+            string dirMark = "<DIR>";
+            string fileMark = new string(' ', dirMark.Length);
 
-            //Это своего рода костыль, но мне пофиг. Работает - не лезь.
-            string secondElementInArray = elementType == "System.IO.DirectoryInfo" ? "<DIR>" : "";
-
-            //Массив с нужными данными (только для улучшения читаемости кода)
-            string[] formatArray = {
-            elementCreationTime.ToString(),
-            secondElementInArray,
-            input
+            //Массив с нужными данными
+            string[] outputArray =
+            {
+                elementInfo.LastAccessTime.ToString(),
+                elementInfo is DirectoryInfo ? dirMark : fileMark,
+                elementInfo is FileInfo ? ((elementInfo as FileInfo).Length / 1024).ToString() : "",
+                elementInfo.Name
             };
 
-            //Выходные данные
-            string output = string.Join("\t", formatArray);
-
-            return output;
+            return string.Join("\t", outputArray);
         }
     }
 }
